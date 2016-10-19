@@ -1,0 +1,2 @@
+weekend	Bread+Milk+Poha, Bhindi Masala+Curd, Idli Dosa, Bread+Milk+Upma, Kofta+Curd+Paratha, Pasta, Bread+Milk+Paratha, Bhindi Masala+Curd+Rice, Pizza, 
+Week2	Bread+Milk+Upma, Kofta+Curd+Paratha, Idli Dosa, Bread+Milk+Poha, Kofta+Curd+Paratha, Idli Dosa, Bread+Milk+Upma, Kofta+Curd+Paratha, Sambar Vada, 
