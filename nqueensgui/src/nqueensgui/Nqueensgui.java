@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -27,10 +28,12 @@ import javafx.stage.Stage;
  */
 public class Nqueensgui extends Application {
 
-    private static boolean answer = true;
-
+    private boolean ans = true;
+    private int k = 0;
+    private final Text temp=new Text();
     @Override
     public void start(Stage primaryStage) {
+        
         String color = "light brown"; 
         Label label1 = new Label();
         label1.setText("Enter the number of Queens");
@@ -43,15 +46,19 @@ public class Nqueensgui extends Application {
         btn1.setText("Next");
         btn2.setText("Exit");        
         btn1.setOnAction((ActionEvent event) -> {
-            int n = Integer.parseInt(number.getText());
+            int n = 0;
+            n = Integer.parseInt(number.getText());
             solveNQueens(n);
         });
         btn2.setOnAction(e->primaryStage.close());
+        HBox hb3 = new HBox(temp);
+        hb3.setPadding(new Insets(20,20,20,20));
+        hb3.setAlignment(Pos.CENTER);
         HBox hb2 = new HBox(btn1, btn2);
         hb2.setPadding(new Insets(20, 20, 20, 20));
         hb2.setAlignment(Pos.CENTER_RIGHT);
         hb2.setSpacing(20);
-        VBox vb = new VBox(hb, hb2);
+        VBox vb = new VBox(hb, hb2, hb3);
         vb.setAlignment(Pos.CENTER);
         BorderPane root = new BorderPane();
         root.setCenter(vb); 
@@ -81,17 +88,21 @@ public class Nqueensgui extends Application {
         ArrayList<Chessboardgui> solutions = C.solutions;
         int i = 0;
         boolean next = true; 
-        System.out.println(solutions.size());
-        if(solutions.isEmpty())
-            System.out.println("No results found");
+        if(solutions.isEmpty() || n==0){
+            temp.setText("Number of solutions: 0");
+        }
+        else
+            temp.setText("Number of solutions: "+solutions.size());
+
         while((i < solutions.size()) && (next)){
             Chessboardgui solution = solutions.get(i);
             GridPane newBoard = solution.createChessboard();
             next = this.input(newBoard);
-            if(!next) System.out.println("Exit");
+            System.out.println(next);
+            System.out.println(i);
+            if(!next) break;
             i++;
         }
-
     }
     
     public boolean input(GridPane board){
@@ -101,12 +112,13 @@ public class Nqueensgui extends Application {
         layout.setCenter(board);
         Button next = new Button("Next");
         Button quit = new Button("Quit");
+        System.out.println(ans);
         next.setOnAction(e -> {
-            answer = true;
+            ans = true;
             window.close();
         });
         quit.setOnAction(e -> {   
-            answer = false;    
+            ans = false;    
             window.close();
         });
         HBox options = createHBox(Pos.BOTTOM_CENTER);
@@ -114,9 +126,9 @@ public class Nqueensgui extends Application {
         layout.setBottom(options);
         Scene scene = new Scene(layout, 400, 400);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
         
-        return answer;
+        return ans;
     }
     
     public static void main(String[] args) {
